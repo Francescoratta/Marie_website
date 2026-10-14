@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery of Modern Masters</title>
+  <style>
+    /* ==========================================================================
+       CLASSY ANCIENT COLOR PALETTE & GLOBAL STYLES
+       ========================================================================== */
+    :root {
+      --bg-parchment: #f4efe6;
+      --bg-parchment-dark: #e6dfd1;
+      --terracotta: #8c3a27;
+      --terracotta-hover: #722e1e;
+      --deep-bronze: #4a3b2c;
+      --ancient-gold: #c59b27;
+      --muted-olive: #556b2f;
+      --text-main: #2b2118;
+      --card-shadow: rgba(74, 59, 44, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-parchment);
+      background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.4) 0%, rgba(230, 223, 209, 0.6) 100%);
+      color: var(--text-main);
+      font-family: 'Georgia', 'Times New Roman', serif;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    header {
+      text-align: center;
+      padding: 40px 20px 30px;
+      border-bottom: 2px dashed var(--deep-bronze);
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      color: var(--deep-bronze);
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      text-shadow: 1px 1px 0px var(--ancient-gold);
+    }
+
+    header p.subtitle {
+      font-style: italic;
+      color: var(--terracotta);
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    /* 3D ANCIENT TACTILE BUTTONS */
+    .btn-3d {
+      display: inline-block;
+      background: linear-gradient(145deg, #9b412c, #7b3121);
+      color: #fff;
+      padding: 10px 20px;
+      border: 2px solid var(--ancient-gold);
+      border-radius: 8px;
+      font-family: inherit;
+      font-weight: bold;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 5px 0 var(--deep-bronze), 0 8px 10px rgba(0,0,0,0.25);
+      transition: all 0.15s ease-in-out;
+      text-decoration: none;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .btn-3d:hover {
+      background: linear-gradient(145deg, #a64730, #883724);
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 var(--deep-bronze), 0 10px 12px rgba(0,0,0,0.2);
+    }
+
+    .btn-3d:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 var(--deep-bronze), 0 3px 5px rgba(0,0,0,0.3);
+    }
+
+    .btn-gold {
+      background: linear-gradient(145deg, #d4a72d, #b58c1f);
+      color: #2b2118;
+      text-shadow: none;
+    }
+
+    .btn-gold:hover {
+      background: linear-gradient(145deg, #e2b332, #c59b27);
+    }
+
+    .btn-large {
+      padding: 15px 35px;
+      font-size: 1.2rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* FEATURED WORKS SPOTLIGHT SECTION */
+    .spotlight-section {
+      background: var(--bg-parchment-dark);
+      border: 3px double var(--deep-bronze);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 50px;
+      box-shadow: 0 8px 16px var(--card-shadow);
+    }
+
+    .spotlight-title {
+      font-size: 2rem;
+      color: var(--deep-bronze);
+      text-align: center;
+      margin-bottom: 25px;
+      border-bottom: 1px solid var(--ancient-gold);
+      padding-bottom: 10px;
+    }
+
+    .spotlight-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    .featured-card {
+      background: var(--bg-parchment);
+      border: 2px solid var(--deep-bronze);
+      border-radius: 10px;
+      padding: 20px;
+      position: relative;
+      box-shadow: 4px 6px 12px rgba(0,0,0,0.1);
+    }
+
+    .featured-card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      object-position: center top;
+      border: 2px solid var(--deep-bronze);
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .badge-guided { background-color: var(--terracotta); color: white; }
+    .badge-chosen { background-color: var(--muted-olive); color: white; }
+    .badge-original { background-color: var(--deep-bronze); color: var(--bg-parchment); }
+    .badge-ai { background-color: var(--ancient-gold); color: var(--deep-bronze); }
+
+    .featured-card h3 {
+      font-size: 1.4rem;
+      color: var(--deep-bronze);
+      margin-bottom: 5px;
+    }
+
+    .featured-card p.meta {
+      font-size: 0.9rem;
+      color: var(--terracotta);
+      margin-bottom: 12px;
+      font-weight: bold;
+    }
+
+    .featured-card p.desc {
+      font-size: 0.95rem;
+      color: #3d3126;
+      margin-bottom: 15px;
+    }
+
+    /* ORDERED CHAOS GALLERY GRID */
+    .chaos-section-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .chaos-section-header h2 {
+      font-size: 2.2rem;
+      color: var(--deep-bronze);
+    }
+
+    .chaos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      padding: 20px 10px 40px;
+    }
+
+    .chaos-card {
+      background: var(--bg-parchment-dark);
+      border: 2px solid var(--deep-bronze);
+      border-radius: 12px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 6px 12px var(--card-shadow);
+      text-align: center;
+      position: relative;
+    }
+
+    .chaos-card:nth-child(1) { transform: rotate(-2.5deg); }
+    .chaos-card:nth-child(2) { transform: rotate(1.8deg); }
+    .chaos-card:nth-child(3) { transform: rotate(-1.5deg); }
+    .chaos-card:nth-child(4) { transform: rotate(3deg); }
+    .chaos-card:nth-child(5) { transform: rotate(-2deg); }
+    .chaos-card:nth-child(6) { transform: rotate(1.2deg); }
+    .chaos-card:nth-child(7) { transform: rotate(-3deg); }
+    .chaos-card:nth-child(8) { transform: rotate(2.5deg); }
+
+    .chaos-card:hover {
+      transform: rotate(0deg) scale(1.06);
+      z-index: 10;
+      border-color: var(--terracotta);
+      box-shadow: 0 12px 24px rgba(140, 58, 39, 0.25);
+    }
+
+    .chaos-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      object-position: center 15%;
+      border-radius: 6px;
+      border: 1px solid var(--deep-bronze);
+      margin-bottom: 12px;
+    }
+
+    .chaos-card h3 {
+      font-size: 1.25rem;
+      color: var(--deep-bronze);
+    }
+
+    .chaos-card.ai-special-card {
+      background: linear-gradient(145deg, #e6dfd1, #f4efe6);
+      border: 3px solid var(--ancient-gold);
+    }
+
+    .chaos-card.ai-special-card h3 {
+      color: var(--terracotta);
+    }
+
+    /* BOTTOM NAV / MINI-GAME BANNER */
+    .game-nav-container {
+      text-align: center;
+      margin: 40px 0 60px;
+      padding: 30px;
+      background: var(--bg-parchment-dark);
+      border: 3px double var(--deep-bronze);
+      border-radius: 12px;
+      box-shadow: 0 8px 16px var(--card-shadow);
+    }
+
+    .game-nav-container h3 {
+      font-size: 1.8rem;
+      color: var(--deep-bronze);
+      margin-bottom: 10px;
+    }
+
+    .game-nav-container p {
+      font-style: italic;
+      color: var(--terracotta);
+      margin-bottom: 20px;
+    }
+
+    /* MINI GAME STYLES */
+    .game-card-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .score-tracker {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--terracotta);
+      background: var(--bg-parchment-dark);
+      padding: 8px 18px;
+      border: 2px solid var(--deep-bronze);
+      border-radius: 20px;
+    }
+
+    .game-image-frame {
+      width: 100%;
+      max-height: 380px;
+      overflow: hidden;
+      border: 3px solid var(--deep-bronze);
+      border-radius: 8px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+      background: #000;
+    }
+
+    .game-image-frame img {
+      width: 100%;
+      height: 380px;
+      object-fit: contain;
+    }
+
+    .game-form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      text-align: left;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      color: var(--deep-bronze);
+      font-size: 0.95rem;
+    }
+
+    .form-group input, .form-group select {
+      padding: 10px 12px;
+      border: 2px solid var(--deep-bronze);
+      border-radius: 6px;
+      background: var(--bg-parchment);
+      font-family: inherit;
+      font-size: 1rem;
+      color: var(--text-main);
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      outline: none;
+      border-color: var(--terracotta);
+      box-shadow: 0 0 5px rgba(140, 58, 39, 0.4);
+    }
+
+    /* MODAL OVERLAYS */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(43, 33, 24, 0.85);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--bg-parchment);
+      border: 3px solid var(--deep-bronze);
+      border-radius: 14px;
+      max-width: 950px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 30px;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .modal-popup-content {
+      max-width: 500px;
+      text-align: center;
+      padding: 35px 25px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 2rem;
+      background: none;
+      border: none;
+      color: var(--deep-bronze);
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .modal-close:hover {
+      color: var(--terracotta);
+    }
+
+    /* POPUP ALERT STYLES */
+    #popupModal {
+      z-index: 3000;
+    }
+
+    .popup-title-success {
+      color: var(--muted-olive);
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    .popup-title-error {
+      color: var(--terracotta);
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    .popup-title-win {
+      color: var(--ancient-gold);
+      font-size: 2.2rem;
+      margin-bottom: 15px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .popup-text {
+      font-size: 1.1rem;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    /* PAINTINGS GRID ITEM */
+    .painting-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      background: var(--bg-parchment-dark);
+      border: 2px solid var(--deep-bronze);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 25px;
+      align-items: center;
+    }
+
+    .painting-info-left {
+      text-align: left;
+    }
+
+    .painting-info-left h4 {
+      font-size: 1.3rem;
+      color: var(--terracotta);
+      margin-bottom: 5px;
+    }
+
+    .painting-info-left p.meta {
+      font-size: 0.85rem;
+      color: var(--deep-bronze);
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .painting-info-left p.desc {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #3d3126;
+      margin-bottom: 15px;
+    }
+
+    .painting-image-right {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .painting-image-right img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 2px solid var(--deep-bronze);
+      box-shadow: 3px 3px 8px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease;
+    }
+
+    .painting-image-right:hover img {
+      transform: scale(1.02);
+    }
+
+    /* AI LAB MODAL GRID */
+    .ai-lab-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 20px;
+      margin-bottom: 25px;
+    }
+
+    .ai-grid-card {
+      background: var(--bg-parchment-dark);
+      border: 2px solid var(--deep-bronze);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .ai-grid-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      object-position: center 30%;
+      border-radius: 6px;
+      border: 1px solid var(--deep-bronze);
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .ai-grid-card img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .ai-grid-card h4 {
+      font-size: 1rem;
+      color: var(--deep-bronze);
+      margin: 5px 0;
+    }
+
+    .explanation-box {
+      background: #eae2d2;
+      border-left: 4px solid var(--terracotta);
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 20px;
+      font-size: 0.95rem;
+    }
+
+    .explanation-box h4 {
+      color: var(--terracotta);
+      margin-bottom: 8px;
+    }
+
+    /* FULL IMAGE LIGHTBOX MODAL */
+    #fullImageModal {
+      z-index: 2000;
+    }
+
+    .full-image-content {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      max-width: 90vw;
+      max-height: 90vh;
+      text-align: center;
+      padding: 0;
+    }
+
+    .full-image-content img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border: 4px solid var(--ancient-gold);
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    }
+
+    .full-image-title {
+      color: var(--bg-parchment);
+      font-size: 1.2rem;
+      margin-top: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    }
+
+    /* RESPONSIVE LAYOUT */
+    @media (max-width: 768px) {
+      header h1 { font-size: 2rem; }
+      .painting-item { grid-template-columns: 1fr; }
+      .ai-lab-grid { grid-template-columns: 1fr; }
+      .chaos-card { transform: rotate(0deg) !important; }
+    }
+  </style>
+</head>
+<body id="topOfPage">
+
+  <div class="container">
+    <!-- HEADER -->
+    <header>
+      <h1>Gallery of Modern Masters</h1>
+      <p class="subtitle">The house of paintings</p>
+    </header>
+
+    <!-- FEATURED WORKS SPOTLIGHT SECTION -->
+    <section class="spotlight-section">
+      <h2 class="spotlight-title">Featured Works Spotlight</h2>
+      <div class="spotlight-grid">
+        
+        <!-- Guided Work: Umberto Boccioni -->
+        <div class="featured-card">
+          <span class="badge badge-guided">Guided Work</span>
+          <span class="badge badge-original">Original</span>
+          <img src="images/factories.jpg" 
+               alt="Factories at Porta Romana"
+               onerror="this.src='https://placehold.co/800x600/e6dfd1/4a3b2c?text=Boccioni+Porta+Romana'">
+          <h3>Factories at Porta Romana</h3>
+          <p class="meta">Umberto Boccioni (1910) • Futurism</p>
+          <p class="desc">
+            Painted directly from his balcony on Via Viazza in Porta Romana, capturing Milan’s rapid modern industrial growth. Held in the prestigious Intesa Sanpaolo / Gallerie d'Italia collection in Milan.
+          </p>
+          <div style="display: flex; gap: 10px;">
+            <button class="btn-3d" onclick="openFullImage('images/factories.jpg', 'Factories at Porta Romana - Umberto Boccioni')">🔍 View Full Image</button>
+            <a href="#" onclick="openAiLabModal(); return false;" class="btn-3d btn-gold">View AI Experiment</a>
+          </div>
+        </div>
+
+        <!-- Chosen Work: François Barraud -->
+        <div class="featured-card">
+          <span class="badge badge-chosen">Chosen Work</span>
+          <span class="badge badge-original">Original</span>
+          <img src="images/enfants.jpg" 
+               alt="Les Trois Enfants"
+               onerror="this.src='https://placehold.co/800x600/e6dfd1/4a3b2c?text=Barraud+Three+Children'">
+          <h3>Les Trois Enfants (The Three Children)</h3>
+          <p class="meta">François Barraud (1932) • Realism / Neue Sachlichkeit</p>
+          <p class="desc">
+            Chosen for its intimate Swiss realism and quiet psychological clarity, serving as a serene, structured counterpoint to Boccioni's dynamic industrial noise.
+          </p>
+          <div style="display: flex; gap: 10px;">
+            <button class="btn-3d" onclick="openFullImage('images/enfants.jpg', 'Les Trois Enfants - François Barraud')">🔍 View Full Image</button>
+            <a href="#" onclick="openAiLabModal(); return false;" class="btn-3d btn-gold">View AI Experiment</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SELECT AN ARTIST (ORDERED CHAOS GRID) -->
+    <section>
+      <div class="chaos-section-header">
+        <h2>Select a Painter</h2>
+        <p>Click any painter to view their 2 paintings with descriptions on the left</p>
+      </div>
+
+      <div class="chaos-grid">
+        
+        <!-- 1. Umberto Boccioni -->
+        <div class="chaos-card" onclick="openPainterModal(0)">
+          <img src="images/umberto.jpg" alt="Umberto Boccioni" onerror="this.src='https://placehold.co/400x300/e6dfd1/4a3b2c?text=Umberto+Boccioni'">
+          <h3>Umberto Boccioni</h3>
+        </div>
+
+        <!-- 2. François Barraud -->
+        <div class="chaos-card" onclick="openPainterModal(1)">
+          <img src="images/barraud.jpg" alt="François Barraud" onerror="this.src='https://placehold.co/400x300/e6dfd1/4a3b2c?text=Francois+Barraud'">
+          <h3>François Barraud</h3>
+        </div>
+
+        <!-- 3. Claude Monet -->
+        <div class="chaos-card" onclick="openPainterModal(2)">
+          <img src="images/monet.jpg" alt="Claude Monet" onerror="this.src='https://placehold.co/400x300/e6dfd1/4a3b2c?text=Claude+Monet'">
+          <h3>Claude Monet</h3>
+        </div>
+
+        <!-- 4. Vincent van Gogh -->
+        <div class="chaos-card" onclick="openPainterModal(3)">
+          <img src="images/van.jpg" alt="Vincent van Gogh" onerror="this.src='https://placehold.co/400x300/e6dfd1/4a3b2c?text=Vincent+van+Gogh'">
+          <h3>Vincent van Gogh</h3>
+        </div>
+
+        <!-- 5. Artemisia Gentileschi -->
+        <div class="chaos-card" onclick="openPainterModal(4)">
+          <img src="images/artemisia.jpg" alt="Artemisia Gentileschi" onerror="this.src='https://placehold.co/400x300/e6dfd1/4a3b2c?text=Artemisia+Gentileschi'">
+          <h3>Artemisia Gentileschi</h3>
+        </div>
+
+        <!-- 6. Paul Cézanne -->
+        <div class="chaos-card" onclick="openPainterModal(5)">
+          <img src="images/paul.jpg" alt="Paul Cézanne" onerror="this.src='https://placehold.co/400x300/e6dfd1/4a3b2c?text=Paul+Cezanne'">
+          <h3>Paul Cézanne</h3>
+        </div>
+
+        <!-- 7. Gustav Klimt -->
+        <div class="chaos-card" onclick="openPainterModal(6)">
+          <img src="images/klimt.jpg" alt="Gustav Klimt" onerror="this.src='https://placehold.co/400x300/e6dfd1/4a3b2c?text=Gustav+Klimt'">
+          <h3>Gustav Klimt</h3>
+        </div>
+
+        <!-- 8. DEDICATED AI LAB CARD -->
+        <div class="chaos-card ai-special-card" onclick="openAiLabModal()">
+          <img src="images/ai.jpg" alt="AI Lab" onerror="this.src='https://placehold.co/400x300/c59b27/2b2118?text=AI+Lab'">
+          <h3>AI Lab / Experiments</h3>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- BOTTOM PAGE NAVIGATION TO MINI GAME -->
+    <div class="game-nav-container">
+      <h3>Test Your Art Connoisseur Knowledge!</h3>
+      <p>Identify 3 paintings correctly (artist, year, AI vs. Original) to win the game!</p>
+      <button class="btn-3d btn-gold btn-large" onclick="openGameModal()">🎮 Play Art Detective Mini-Game</button>
+    </div>
+  </div>
+
+  <!-- PAINTER & PAINTINGS MODAL -->
+  <div id="artistModal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('artistModal')">&times;</button>
+      <h2 id="artistModalName" style="color: var(--deep-bronze); margin-bottom: 5px;">Artist Name</h2>
+      <p id="artistModalBio" style="margin-bottom: 25px; color: var(--terracotta); font-weight: bold;">Artist Bio...</p>
+      
+      <!-- Dynamic container for paintings -->
+      <div id="paintingsContainer"></div>
+
+      <div style="margin-top: 20px; text-align: right;">
+        <button class="btn-3d" onclick="closeModal('artistModal')">Close Gallery</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL IMAGE LIGHTBOX MODAL -->
+  <div id="fullImageModal" class="modal-overlay" onclick="closeModal('fullImageModal')">
+    <div class="modal-content full-image-content" onclick="event.stopPropagation()">
+      <button class="modal-close" style="color: #fff;" onclick="closeModal('fullImageModal')">&times;</button>
+      <img id="lightboxImg" src="" alt="Full Artwork">
+      <div id="lightboxTitle" class="full-image-title">Artwork Title</div>
+    </div>
+  </div>
+
+  <!-- AI LAB MODAL -->
+  <div id="aiLabModal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('aiLabModal')">&times;</button>
+      <h2 style="color: var(--deep-bronze); text-align: center; margin-bottom: 5px;">AI Lab Experiments</h2>
+      <p style="text-align: center; color: var(--terracotta); font-weight: bold; margin-bottom: 15px;">
+        Comparing Original Masterpieces side-by-side with AI Re-imaginations (Click any image to view full screen)
+      </p>
+
+      <div class="ai-lab-grid">
+        <div class="ai-grid-card">
+          <span class="badge badge-original">Original 1</span>
+          <img src="images/factories.jpg" alt="Boccioni Original" onclick="openFullImage('images/factories.jpg', 'Factories at Porta Romana (Original)')" onerror="this.src='https://placehold.co/400x300/e6dfd1/4a3b2c?text=Boccioni+Original'">
+          <h4>Factories at Porta Romana</h4>
+          <p style="font-size: 0.8rem; color: #555;">Umberto Boccioni (1910)</p>
+        </div>
+        <div class="ai-grid-card">
+          <span class="badge badge-ai">AI Experiment 1</span>
+          <img src="images/boccioni_ai.jpg" alt="Boccioni AI Experiment" onclick="openFullImage('images/boccioni_ai.jpg', 'Futuristic Cyber-Milan (AI Experiment)')" onerror="this.src='https://placehold.co/400x300/c59b27/2b2118?text=Boccioni+AI'">
+          <h4>Futuristic Cyber-Milan</h4>
+          <p style="font-size: 0.8rem; color: #555;">AI Reinterpretation</p>
+        </div>
+
+        <div class="ai-grid-card">
+          <span class="badge badge-original">Original 2</span>
+          <img src="images/enfants.jpg" alt="Barraud Original" onclick="openFullImage('images/enfants.jpg', 'Les Trois Enfants (Original)')" onerror="this.src='https://placehold.co/400x300/e6dfd1/4a3b2c?text=Barraud+Original'">
+          <h4>Les Trois Enfants</h4>
+          <p style="font-size: 0.8rem; color: #555;">François Barraud (1932)</p>
+        </div>
+        <div class="ai-grid-card">
+          <span class="badge badge-ai">AI Experiment 2</span>
+          <img src="images/barraud_ai.jpg" alt="Barraud AI Experiment" onclick="openFullImage('images/barraud_ai.jpg', 'Luminous Realism AI (AI Experiment)')" onerror="this.src='https://placehold.co/400x300/c59b27/2b2118?text=Barraud+AI'">
+          <h4>Luminous Realism AI</h4>
+          <p style="font-size: 0.8rem; color: #555;">AI Reinterpretation</p>
+        </div>
+
+        <div class="ai-grid-card">
+          <span class="badge badge-original">Original 3</span>
+          <img src="images/mona.jpg" alt="Mona Lisa Original" onclick="openFullImage('images/mona.jpg', 'Monna Lisa (Original)')" onerror="this.src='https://placehold.co/400x300/e6dfd1/4a3b2c?text=Monna+Lisa+Original'">
+          <h4>Monna Lisa</h4>
+          <p style="font-size: 0.8rem; color: #555;">Leonardo Da Vinci (1517)</p>
+        </div>
+        <div class="ai-grid-card">
+          <span class="badge badge-ai">AI Experiment 3</span>
+          <img src="images/mona2.jpg" alt="Mona Lisa AI Experiment" onclick="openFullImage('images/mona2.jpg', 'Neural Style Synthesis (AI Experiment)')" onerror="this.src='https://placehold.co/400x300/c59b27/2b2118?text=Neural+AI'">
+          <h4>Neural Style Synthesis</h4>
+          <p style="font-size: 0.8rem; color: #555;">AI Reinterpretation</p>
+        </div>
+      </div>
+
+      <div class="explanation-box">
+        <h4>What Changed Between Original & AI Experiments?</h4>
+        <p>
+          The AI models enhance chromatic intensity, modern texture synthesis, and lighting contrasts. While the original artworks prioritize human impulse, hand-crafted texture, and authentic historical context, the AI experiments reinterpret these compositions with surreal neural precision and contemporary digital illumination.
+        </p>
+      </div>
+
+      <div style="margin-top: 20px; text-align: center;">
+        <button class="btn-3d btn-gold" onclick="closeModal('aiLabModal')">Close AI Lab</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MINI GAME MODAL -->
+  <div id="gameModal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal('gameModal')">&times;</button>
+      <h2 style="color: var(--deep-bronze); text-align: center; margin-bottom: 5px;">Art Detective Mini-Game</h2>
+      
+      <!-- Score Display -->
+      <div style="text-align: center; margin-bottom: 15px;">
+        <span class="score-tracker" id="scoreDisplay">Correct Guesses: 0 / 3</span>
+      </div>
+
+      <div class="game-card-container">
+        <div class="game-image-frame">
+          <img id="gamePaintingImg" src="" alt="Game Artwork" onerror="this.src='https://placehold.co/600x400/e6dfd1/4a3b2c?text=Artwork+Mystery'">
+        </div>
+
+        <form class="game-form" id="artGameForm" onsubmit="submitGameAnswer(event)">
+          <div class="form-group">
+            <label for="gameArtistInput">Painter / Artist Name:</label>
+            <input type="text" id="gameArtistInput" placeholder="e.g. van gogh or Monet (case-insensitive)" required>
+          </div>
+
+          <div class="form-group">
+            <label for="gameYearInput">Year of Painting / Creation:</label>
+            <input type="number" id="gameYearInput" placeholder="e.g. 1889" required>
+          </div>
+
+          <div class="form-group">
+            <label for="gameAiSelect">Is this Painting Original or AI Generated?</label>
+            <select id="gameAiSelect" required>
+              <option value="" disabled selected>-- Select Authenticity --</option>
+              <option value="original">Original Masterpiece</option>
+              <option value="ai">AI Generated / Reinterpretation</option>
+            </select>
+          </div>
+
+          <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <button type="submit" class="btn-3d btn-gold" style="flex: 2;">Submit Guess</button>
+            <button type="button" class="btn-3d" style="flex: 1;" onclick="loadRandomGameQuestion()">Skip / Next 🎲</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP FEEDBACK & VICTORY MODAL -->
+  <div id="popupModal" class="modal-overlay">
+    <div class="modal-content modal-popup-content">
+      <div id="popupBody"></div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT: DATA & INTERACTION LOGIC -->
+  <script>
+    const painters = [
+      {
+        name: "Umberto Boccioni",
+        bio: "Italian Futurist pioneer whose works captured the energy, speed, and industrial transformation of Milan.",
+        paintings: [
+          {
+            title: "Factories at Porta Romana (Officine a Porta Romana)",
+            image: "images/factories.jpg",
+            meta: "1910 • Gallerie d'Italia, Milan",
+            description: "Guided Work: Painted directly from his balcony on Via Viazza in Porta Romana, capturing Milan’s expanding electrical tramlines and industrial smoke."
+          },
+          {
+            title: "The City Rises (La città che sale)",
+            image: "images/citta.jpg",
+            meta: "1910 • Museum of Modern Art, New York",
+            description: "A colossal dynamic canvas depicting massive red draft horses and laborers building the modern city infrastructure of urban Milan."
+          }
+        ]
+      },
+      {
+        name: "François Barraud",
+        bio: "Swiss master celebrated for his meticulous, luminous realism and intimate psychological portrayals.",
+        paintings: [
+          {
+            title: "Les Trois Enfants (The Three Children)",
+            image: "images/enfants.jpg",
+            meta: "1932 • Musée d'Art et d'Histoire, Geneva",
+            description: "Chosen Work: A quiet, meticulously crafted triple portrait of children showcasing crisp structural clarity and calm realistic lighting."
+          },
+          {
+            title: "La Tailleuse (The Seamstress)",
+            image: "images/tailleuse.jpg",
+            meta: "1930 • Kunstmuseum Basel",
+            description: "An intimate scene displaying his wife working with quiet devotion, highlighting Barraud's sharp lines and serene atmosphere."
+          }
+        ]
+      },
+      {
+        name: "Claude Monet",
+        bio: "Founder of French Impressionist painting who transformed landscape art through vibrant light and color.",
+        paintings: [
+          {
+            title: "Water Lilies (Nymphéas)",
+            image: "images/water.jpg",
+            meta: "1916 • Musée de l'Orangerie, Paris",
+            description: "Captures the shifting reflections of water, sky, and lilies in his home garden pond in Giverny."
+          },
+          {
+            title: "Impression, Sunrise",
+            image: "images/sunrise.jpg",
+            meta: "1872 • Musée Marmottan Monet, Paris",
+            description: "The historic painting of Le Havre harbor that famously gave the Impressionist movement its name."
+          }
+        ]
+      },
+      {
+        name: "Vincent van Gogh",
+        bio: "Dutch Post-Impressionist painter known for dramatic emotional brushwork and vivid color harmony.",
+        paintings: [
+          {
+            title: "The Starry Night",
+            image: "images/starry.jpg",
+            meta: "1889 • Museum of Modern Art, New York",
+            description: "A swirling, nocturnal sky rendered with intense rhythmic brushstrokes from his room in Saint-Rémy-de-Provence."
+          },
+          {
+            title: "Sunflowers (Vase with Fifteen Sunflowers)",
+            image: "images/sunf.jpg",
+            meta: "1888 • National Gallery, London",
+            description: "Demonstrates the expressive possibilities of vibrant yellow hues to symbolize friendship and gratitude."
+          }
+        ]
+      },
+      {
+        name: "Artemisia Gentileschi",
+        bio: "Baroque master renowned for dramatic chiaroscuro lighting and powerful heroic female figures.",
+        paintings: [
+          {
+            title: "Judith Slaying Holofernes",
+            image: "images/judith.jpg",
+            meta: "1620 • Uffizi Gallery, Florence",
+            description: "A dramatic masterpiece featuring visceral intensity and masterly Caravaggesque spotlight technique."
+          },
+          {
+            title: "Self-Portrait as the Allegory of Painting",
+            image: "images/self_gentil.jpg",
+            meta: "1638 • Royal Collection, Windsor",
+            description: "An inventive self-portrait portraying herself as the personification of artistic creation."
+          }
+        ]
+      },
+      {
+        name: "Paul Cézanne",
+        bio: "French Post-Impressionist who built the bridge between 19th-century Impressionism and 20th-century Cubism.",
+        paintings: [
+          {
+            title: "Mont Sainte-Victoire",
+            image: "images/moint.jpg",
+            meta: "1904 • Philadelphia Museum of Art",
+            description: "Deconstructs the southern French landscape into structured geometric planes of pure color."
+          },
+          {
+            title: "The Basket of Apples",
+            image: "images/basket.jpg",
+            meta: "1895 • Art Institute of Chicago",
+            description: "A famous still life challenging traditional perspective through multiple viewpoints."
+          }
+        ]
+      },
+      {
+        name: "Gustav Klimt",
+        bio: "Austrian Symbolist painter renowned for his ornate Golden Phase and elegant decorative style.",
+        paintings: [
+          {
+            title: "The Kiss (Der Kuss)",
+            image: "images/kiss.jpg",
+            meta: "1908 • Österreichische Galerie Belvedere, Vienna",
+            description: "An icon of Art Nouveau combining shimmering gold leaf ornament with emotional intimacy."
+          },
+          {
+            title: "Portrait of Adele Bloch-Bauer I",
+            image: "images/adele.jpg",
+            meta: "1907 • Neue Galerie, New York",
+            description: "A golden masterpiece blending intricate geometric symbolism with refined portraiture."
+          }
+        ]
+      }
+    ];
+
+    /* GAME DATASET */
+    const gameDatabase = [
+      { image: "images/factories.jpg", artist: "Umberto Boccioni", year: 1910, isAi: false, title: "Factories at Porta Romana" },
+      { image: "images/citta.jpg", artist: "Umberto Boccioni", year: 1910, isAi: false, title: "The City Rises" },
+      { image: "images/enfants.jpg", artist: "François Barraud", year: 1932, isAi: false, title: "Les Trois Enfants" },
+      { image: "images/tailleuse.jpg", artist: "François Barraud", year: 1930, isAi: false, title: "La Tailleuse" },
+      { image: "images/water.jpg", artist: "Claude Monet", year: 1916, isAi: false, title: "Water Lilies" },
+      { image: "images/sunrise.jpg", artist: "Claude Monet", year: 1872, isAi: false, title: "Impression, Sunrise" },
+      { image: "images/starry.jpg", artist: "Vincent van Gogh", year: 1889, isAi: false, title: "The Starry Night" },
+      { image: "images/sunf.jpg", artist: "Vincent van Gogh", year: 1888, isAi: false, title: "Sunflowers" },
+      { image: "images/judith.jpg", artist: "Artemisia Gentileschi", year: 1620, isAi: false, title: "Judith Slaying Holofernes" },
+      { image: "images/self_gentil.jpg", artist: "Artemisia Gentileschi", year: 1638, isAi: false, title: "Self-Portrait as the Allegory of Painting" },
+      { image: "images/moint.jpg", artist: "Paul Cézanne", year: 1904, isAi: false, title: "Mont Sainte-Victoire" },
+      { image: "images/basket.jpg", artist: "Paul Cézanne", year: 1895, isAi: false, title: "The Basket of Apples" },
+      { image: "images/kiss.jpg", artist: "Gustav Klimt", year: 1908, isAi: false, title: "The Kiss" },
+      { image: "images/adele.jpg", artist: "Gustav Klimt", year: 1907, isAi: false, title: "Portrait of Adele Bloch-Bauer I" },
+      { image: "images/mona.jpg", artist: "Leonardo Da Vinci", year: 1517, isAi: false, title: "Monna Lisa" },
+      { image: "images/boccioni_ai.jpg", artist: "Umberto Boccioni", year: 2024, isAi: true, title: "Futuristic Cyber-Milan" },
+      { image: "images/barraud_ai.jpg", artist: "François Barraud", year: 2024, isAi: true, title: "Luminous Realism AI" },
+      { image: "images/mona2.jpg", artist: "Leonardo Da Vinci", year: 2024, isAi: true, title: "Neural Style Synthesis" }
+    ];
+
+    let currentQuestion = null;
+    let score = 0;
+    let redirectTimer = null;
+
+    function openPainterModal(index) {
+      const painter = painters[index];
+      document.getElementById('artistModalName').innerText = painter.name;
+      document.getElementById('artistModalBio').innerText = painter.bio;
+
+      const container = document.getElementById('paintingsContainer');
+      container.innerHTML = painter.paintings.map(p => `
+        <div class="painting-item">
+          <div class="painting-info-left">
+            <span class="badge badge-original">Original Work</span>
+            <h4>${p.title}</h4>
+            <p class="meta">${p.meta}</p>
+            <p class="desc">${p.description}</p>
+            <button class="btn-3d" onclick="openFullImage('${p.image}', '${p.title.replace(/'/g, "\\'")}')">🔍 View Full Image</button>
+          </div>
+          <div class="painting-image-right" onclick="openFullImage('${p.image}', '${p.title.replace(/'/g, "\\'")}')">
+            <img src="${p.image}" alt="${p.title}" onerror="this.src='https://placehold.co/400x300/e6dfd1/4a3b2c?text=${encodeURIComponent(p.title)}'">
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('artistModal').classList.add('active');
+    }
+
+    function openAiLabModal() {
+      document.getElementById('aiLabModal').classList.add('active');
+    }
+
+    function openFullImage(src, title) {
+      const img = document.getElementById('lightboxImg');
+      img.src = src;
+      img.onerror = function() {
+        this.src = 'https://placehold.co/800x600/e6dfd1/4a3b2c?text=' + encodeURIComponent(title);
+      };
+      document.getElementById('lightboxTitle').innerText = title;
+      document.getElementById('fullImageModal').classList.add('active');
+    }
+
+    /* MINI GAME LOGIC */
+    function openGameModal() {
+      score = 0;
+      updateScoreDisplay();
+      document.getElementById('gameModal').classList.add('active');
+      loadRandomGameQuestion();
+    }
+
+    function updateScoreDisplay() {
+      document.getElementById('scoreDisplay').innerText = `Correct Guesses: ${score} / 3`;
+    }
+
+    function loadRandomGameQuestion() {
+      document.getElementById('gameArtistInput').value = '';
+      document.getElementById('gameYearInput').value = '';
+      document.getElementById('gameAiSelect').selectedIndex = 0;
+
+      const randomIndex = Math.floor(Math.random() * gameDatabase.length);
+      currentQuestion = gameDatabase[randomIndex];
+
+      const img = document.getElementById('gamePaintingImg');
+      img.src = currentQuestion.image;
+      img.onerror = function() {
+        this.src = 'https://placehold.co/600x400/e6dfd1/4a3b2c?text=' + encodeURIComponent(currentQuestion.title);
+      };
+    }
+
+    function cleanText(str) {
+      if (!str) return '';
+      return str
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9\s]/g, "")
+        .trim();
+    }
+
+    function submitGameAnswer(event) {
+      event.preventDefault();
+      if (!currentQuestion) return;
+
+      const inputArtistRaw = document.getElementById('gameArtistInput').value;
+      const inputYear = parseInt(document.getElementById('gameYearInput').value.trim(), 10);
+      const inputAi = document.getElementById('gameAiSelect').value;
+
+      const cleanedInputArtist = cleanText(inputArtistRaw);
+      const cleanedTargetArtist = cleanText(currentQuestion.artist);
+
+      const isArtistCorrect = cleanedInputArtist.length > 0 && 
+        (cleanedTargetArtist.includes(cleanedInputArtist) || cleanedInputArtist.includes(cleanedTargetArtist));
+
+      const isYearCorrect = Math.abs(currentQuestion.year - inputYear) <= 3;
+      const isAiCorrect = (inputAi === 'ai' && currentQuestion.isAi) || (inputAi === 'original' && !currentQuestion.isAi);
+
+      if (isArtistCorrect && isYearCorrect && isAiCorrect) {
+        score++;
+        updateScoreDisplay();
+
+        if (score >= 3) {
+          showVictoryPopup();
+        } else {
+          showPopup(true, `
+            <h3 class="popup-title-success">🎉 SUCCESSFUL!</h3>
+            <p class="popup-text">
+              Spot on! <strong>"${currentQuestion.title}"</strong> is by <strong>${currentQuestion.artist}</strong> (${currentQuestion.year}), 
+              and it is <strong>${currentQuestion.isAi ? 'an AI Experiment' : 'an Original Masterpiece'}</strong>.
+            </p>
+            <button class="btn-3d btn-gold" onclick="closePopupAndNext()">Next Artwork 🎲</button>
+          `);
+        }
+      } else {
+        let errors = [];
+        if (!isArtistCorrect) errors.push(`Artist (Correct: "${currentQuestion.artist}")`);
+        if (!isYearCorrect) errors.push(`Year (Correct: ~${currentQuestion.year})`);
+        if (!isAiCorrect) errors.push(`Type (Correct: ${currentQuestion.isAi ? 'AI Experiment' : 'Original'})`);
+
+        showPopup(false, `
+          <h3 class="popup-title-error">❌ WRONG GUESS</h3>
+          <p class="popup-text">
+            Not quite! Incorrect details in: <strong>${errors.join(', ')}</strong>.
+          </p>
+          <button class="btn-3d" onclick="closePopupOnly()">Try Again</button>
+        `);
+      }
+    }
+
+    function showPopup(isSuccess, htmlContent) {
+      document.getElementById('popupBody').innerHTML = htmlContent;
+      document.getElementById('popupModal').classList.add('active');
+    }
+
+    function closePopupOnly() {
+      document.getElementById('popupModal').classList.remove('active');
+    }
+
+    function closePopupAndNext() {
+      document.getElementById('popupModal').classList.remove('active');
+      loadRandomGameQuestion();
+    }
+
+    function showVictoryPopup() {
+      let secondsLeft = 10;
+
+      const renderVictoryHTML = (secs) => `
+        <h3 class="popup-title-win">🏆 YOU WIN! 🏆</h3>
+        <p class="popup-text">
+          Congratulations! You correctly identified <strong>3 paintings</strong> and earned the title of <strong>Master Connoisseur</strong>!
+        </p>
+        <p style="font-size: 0.95rem; color: var(--terracotta); margin-bottom: 20px; font-weight: bold;">
+          Returning to the home page in <span id="countdownSpan">${secs}</span> seconds...
+        </p>
+        <button class="btn-3d btn-gold" onclick="returnToHomePage()">Go to Home Page Now 🏠</button>
+      `;
+
+      showPopup(true, renderVictoryHTML(secondsLeft));
+
+      if (redirectTimer) clearInterval(redirectTimer);
+
+      redirectTimer = setInterval(() => {
+        secondsLeft--;
+        const span = document.getElementById('countdownSpan');
+        if (span) span.innerText = secondsLeft;
+
+        if (secondsLeft <= 0) {
+          clearInterval(redirectTimer);
+          returnToHomePage();
+        }
+      }, 1000);
+    }
+
+    function returnToHomePage() {
+      if (redirectTimer) clearInterval(redirectTimer);
+      closeModal('popupModal');
+      closeModal('gameModal');
+      score = 0;
+      updateScoreDisplay();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    window.onclick = function(event) {
+      if (event.target.classList.contains('modal-overlay')) {
+        event.target.classList.remove('active');
+      }
+    };
+  </script>
+</body>
+</html>
